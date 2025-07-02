@@ -1,0 +1,5 @@
+#
+# remote cfg files
+#
+*.tab[0-9]
+*.conf
