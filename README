@@ -1,11 +1,11 @@
 A script for transferring remote configuration files to an Amlogic TV-BOX running LineageOS-22.2 or later (non-A/B devices only).
-This allows replacing/adding new remote configuration files on the running system without root access.
 
 Requirements:
 * A Linux PC or VM with Linux
 * ADB pre-installed on the computer.
 
 How to use:
+-----------
 Step 1. TV-BOX: Enable "USB debugging", "Rooted debugging", and "ADB over network" under "Developer options".
 
 Step 2. Computer: Start ADB
@@ -13,47 +13,33 @@ cd cpremote
 adb connect <ip.addr.tv.box>
 
 Step 3. Run the script:
+chmod +x cpremote.sh
 ./cpremote remote.tab1
 or
 ./cpremote remote.tab2
 or
 ./cpremote remote.tab3
+or (optional)
+./cpremote remote.cfg
 
-Step 4. The script performs a reboot (wait-for-device) of your TV-BOX.
-Pay attention to the message "Rebooting device for new settings to take effect".
-Wait until the TV-BOX completely reboots and re-enable the "ADB over network" function under "Developer options".
-Once you've done that, the script will continue and display the "Selection menu".
+Step 4. Choose opt: ​​1 - A remote.tabX file will be downloaded from the device to the current folder, which you can now customize to your needs.
+If you already have a pre-made and working remote.tabX file, just copy it into the 'cpremote' folder.
 
-Step 5. Choose opt: ​​1 - A remote.tabX file will be downloaded from the TV box to the current folder, which you can now customize to your needs.
-If you already have a pre-made and working remote.tabX file, simply copy it into the cpremote folder.
-The script will ignore the download of the remote.tabX file from the TV-BOX.
+Step 5. Choose opt: ​​2 - The new remote.tabX file will be pushed to the device.
 
-Step 6. Choose opt: ​​2 - The new remote.tabX file will be transferred to the TV-BOX and overwrite the old configuration file.
-
-Step 7. Choose opt ​​3 - A debug mode will be activated, allowing you to test your new remote configuration.
+Step 6. Choose opt: ​​3 - A debug mode will be activated, allowing you to test your new remote configuration.
 The debug starts with information like:
 
 Loading cfgs:
 0. 0xf708,amlogic-remote-1
-1. 0xfb04,amlogic-remote-1
-2. 0xfe01,my-remote-nec
+1. 0xfe01,my-remote-nec
 
-...
-The “custom_code” and “custom_name” of your new remote.tabX file should appear here.
+The "custom_code" and "custom_name" of your new remote.tabX file should appear here.
 In my example, it was "0xfe01,my-remote-nec".
 Just follow the instructions on the screen.
 When you are satisfied with the new configuration, exit debug mode by pressing Ctrl+C on your keyboard.
 
-Step 8. Choose opt ​​4 - Wait for the TV-BOX to reboot completely.
-The new changes are now activated.
+Step 7. Choose opt: ​​4 or 5 - Reboot the device(4) or exit the script(5).
 
-Opt. 5 (optional) explains itself.
+----------------------------------
 Opt. 6 (optional) explains itself.
-
-Note: In rare cases, after the first reboot and repeatedly enabling the "ADB over network" function, the script may not resume automatically.
-This could be due to a delayed or sluggish network connection between the PC and TV-BOX.
-Don't worry - open another terminal window in parallel and run "adb connect <ip.addr.tv.box>".
-Switch to the first terminal window and proceed as described above.
-
-The basis for writing this script is taken from here:
-https://android.googlesource.com/platform/system/core/+/master/fs_mgr/README.overlayfs.md
